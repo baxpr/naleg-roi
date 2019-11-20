@@ -10,17 +10,17 @@
 
 % ROI file, which was manually created and is the ROI_IMAGE resource of the
 % 1H_FFE_mDixon scan
-roi_full_filename = '/Users/rogersbp/testdata/sodium_leg_roi/labels.nii.gz';
+roi_full_filename = '../INPUTS/labels.nii.gz';
 
 % Sodium image file, the NIFTI resource of the 23Na_3D_TR130 scan
-na_full_filename = '/Users/rogersbp/testdata/sodium_leg_roi/na.nii.gz';
+na_full_filename = '../INPUTS/na.nii.gz';
 
 % Pass in project etc also
 project = 'TESTPROJ';
-subject = '214069';
+subject = 'TESTSUBJ';
 session = 'TESTSESS';
 scan = 'TESTSCAN';
-
+out_dir = '../OUTPUTS';
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,10 +39,10 @@ scan = 'TESTSCAN';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Processing
-
-[na_resamp_file,redcap_file] = process_rois( ...
+process_rois( ...
 	roi_full_filename, ...
 	na_full_filename, ...
+	out_dir, ...
 	project, ...
 	subject, ...
 	session, ...
