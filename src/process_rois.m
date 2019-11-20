@@ -51,13 +51,13 @@ namri_na_filename = [n e];
 % ROI
 copyfile(roi_full_filename,out_dir);
 [~,roi_n,roi_e] = fileparts(roi_full_filename);
-system(['gunzip -f ' outdir filesep roi_n roi_e])
+system(['gunzip -f ' out_dir filesep roi_n roi_e])
 roi_full_filename = fullfile(out_dir,roi_n);
 
 % Na
 copyfile(na_full_filename,out_dir);
 [~,na_n,na_e] = fileparts(na_full_filename);
-system(['gunzip -f ' outdir filesep na_n na_e])
+system(['gunzip -f ' out_dir filesep na_n na_e])
 na_full_filename = fullfile(out_dir,na_n);
 
 
