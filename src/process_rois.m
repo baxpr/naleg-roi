@@ -1,6 +1,7 @@
-function [na_resamp_file,redcap_file] = process_rois( ...
+function process_rois( ...
 	roi_full_filename, ...
 	na_full_filename, ...
+	out_dir, ...
 	project, ...
 	subject, ...
 	session, ...
@@ -45,26 +46,19 @@ namri_na_filename = [n e];
 
 
 
-%% Unzip the files
+%% Unzip the files to out_dir
 
 % ROI
-[roi_p,roi_n,roi_e] = fileparts(roi_full_filename);
-if strcmp(roi_e,'.gz')
-	system(['gunzip -f ' roi_full_filename]);
-	roi_full_filename = fullfile(roi_p,roi_n);
-else
-	error('Expecting .nii.gz roi file')
-end
+copyfile(roi_full_filename,out_dir);
+[~,roi_n,roi_e] = fileparts(roi_full_filename);
+system(['gunzip -f ' outdir filesep roi_n roi_e])
+roi_full_filename = fullfile(out_dir,roi_n);
 
 % Na
-[na_p,na_n,na_e] = fileparts(na_full_filename);
-if strcmp(na_e,'.gz')
-	system(['gunzip -f ' na_full_filename]);
-	na_full_filename = fullfile(na_p,na_n);
-else
-	error('Expecting .nii.gz sodium image file')
-end
-
+copyfile(na_full_filename,out_dir);
+[~,na_n,na_e] = fileparts(na_full_filename);
+system(['gunzip -f ' outdir filesep na_n na_e])
+na_full_filename = fullfile(out_dir,na_n);
 
 
 %% Interpolate the sodium image to ROI image space
@@ -78,7 +72,7 @@ matlabbatch{1}.spm.spatial.coreg.write.roptions.mask = 0;
 matlabbatch{1}.spm.spatial.coreg.write.roptions.prefix = 'r';
 spm_jobman('run',matlabbatch);
 
-na_interp_filename = fullfile(na_p,['r' na_n]);
+na_interp_filename = fullfile(out_dir,['r' na_n]);
 
 
 
@@ -292,7 +286,7 @@ Iroi = imshow(roiimg);
 set(Iroi,'AlphaData',roialpha)
 
 % Print
-pdf_file = fullfile(na_p,'manual_seg_report.pdf');
+pdf_file = fullfile(out_dir,'manual_seg_report.pdf');
 print(pdf_figure,'-dpdf',pdf_file)
 
 
@@ -302,7 +296,6 @@ print(pdf_figure,'-dpdf',pdf_file)
 %system(['gzip -f ' roi_full_filename]);
 %system(['gzip -f ' na_full_filename]);
 system(['gzip -f ' na_interp_filename]);
-na_resamp_file = [na_interp_filename '.gz'];
 
 
 
