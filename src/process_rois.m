@@ -49,16 +49,18 @@ namri_na_filename = [n e];
 %% Unzip the files to out_dir
 
 % ROI
-copyfile(roi_full_filename,out_dir);
-[~,roi_n,roi_e] = fileparts(roi_full_filename);
-system(['gunzip -f ' out_dir filesep roi_n roi_e]);
-roi_full_filename = fullfile(out_dir,roi_n);
+[roi_p,roi_n] = fileparts(roi_full_filename);
+system(['gunzip -f ' roi_full_filename]);
+roi_full_filename = fullfile(roi_p,roi_n);
+movefile(roi_full_filename,fullfile(out_dir,'roi.nii'));
+roi_full_filename = fullfile(out_dir,'roi.nii');
 
 % Na
-copyfile(na_full_filename,out_dir);
-[~,na_n,na_e] = fileparts(na_full_filename);
-system(['gunzip -f ' out_dir filesep na_n na_e]);
-na_full_filename = fullfile(out_dir,na_n);
+[na_p,na_n] = fileparts(na_full_filename);
+system(['gunzip -f ' na_full_filename]);
+na_full_filename = fullfile(na_p,na_n);
+movefile(na_full_filename,fullfile(out_dir,'na.nii'));
+na_full_filename = fullfile(out_dir,'na.nii');
 
 
 %% Interpolate the sodium image to ROI image space
@@ -73,7 +75,8 @@ matlabbatch{1}.spm.spatial.coreg.write.roptions.prefix = 'r';
 spm_jobman('run',matlabbatch);
 
 na_interp_filename = fullfile(out_dir,['r' na_n]);
-
+movefile(na_interp_filename,fullfile(out_dir,'na_resample.nii'))
+na_interp_filename = fullfile(out_dir,'na_resample.nii');
 
 
 %% Load the two images
