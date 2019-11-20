@@ -105,7 +105,7 @@ end
 %==========================================================================
 %-Compilation
 %==========================================================================
-Nopts = {'-p',fullfile(matlabroot,'toolbox','signal')};
+Nopts = {'-p',fullfile(matlabroot,'toolbox','signal','stats')};
 if ~exist(Nopts{2},'dir'), Nopts = {}; end
 Ropts = {'-R','-singleCompThread'} ;
 if spm_check_version('matlab','8.4') >= 0
