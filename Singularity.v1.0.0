@@ -42,7 +42,7 @@ From: ubuntu:16.04
   # of the actual file) so we get the compiled matlab executable via direct download.
   # Also need a "dry run" of SPM executable to avoid directory creation errors later.
   rm /opt/naleg_roi/bin/spm12.ctf
-  wget -nv -P /opt/naleg_roi/bin https://github.com/baxpr/naleg_roi/raw/master/bin/spm12.ctf
+  wget -nv -P /opt/naleg_roi/bin https://github.com/baxpr/naleg-roi/blob/master/bin/spm12.ctf?raw=true
   /opt/naleg_roi/bin/run_spm12.sh /usr/local/MATLAB/MATLAB_Runtime/v92 quit
 
 %environment
