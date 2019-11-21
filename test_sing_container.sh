@@ -2,7 +2,7 @@
 
 singularity run \
 --cleanenv \
---home INPUTS \
+--home `pwd`/INPUTS \
 --bind INPUTS:/INPUTS \
 --bind OUTPUTS:/OUTPUTS \
 baxpr-naleg-roi-master-v1.0.0.simg \
