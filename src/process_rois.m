@@ -314,3 +314,7 @@ system(['gzip -f ' na_interp_filename]);
 
 
 
+%% Exit
+if isdeployed
+	exit
+end
