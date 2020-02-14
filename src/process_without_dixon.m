@@ -14,7 +14,7 @@ spm_check_orientations([Vna;Vroi]);
 % Check for needed ROI values
 uroi = unique(Yroi(:));
 uroi = uroi(uroi~=0);
-if ~all(uroi==[1 2 3 4 10 11]')
+if ~all(uroi==[1 2 3 4 10 11 12]')
 	error('Issue with ROI values')
 end
 
@@ -35,6 +35,7 @@ vals.Name{vals.Label==3} = 'ph30';
 vals.Name{vals.Label==4} = 'ph40';
 vals.Name{vals.Label==10} = 'allmuscle';
 vals.Name{vals.Label==11} = 'skin';
+vals.Name{vals.Label==12} = 'bkgnd';
 
 for h = 1:height(vals)
 	vals.mean_raw(h,1) = mean(Yna(Yroi(:)==vals.Label(h)));
