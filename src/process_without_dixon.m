@@ -3,9 +3,11 @@ function process_without_dixon(na_niigz,roi_niigz)
 % Dixon image for the full pipeline. Inputs are nifti filenames
 
 % Load files and check that geometry matches
+fprintf('\nNa file:  %s\n',na_niigz)
 Vna = spm_vol(na_niigz);
 Yna = spm_read_vols(Vna);
 
+fprintf('\nROI file: %s\n\n',roi_niigz)
 Vroi = spm_vol(roi_niigz);
 Yroi = spm_read_vols(Vroi);
 
@@ -19,7 +21,7 @@ if ~all(uroi==[1 2 3 4 10 11 12]')
 end
 
 % Show the images
-figure(1); clf
+figure; clf
 subplot(1,2,1)
 imagesc(Yna(:,:,4)')
 axis image off
@@ -57,7 +59,6 @@ cal_rsq = corr(x,y).^2;
 vals.mean_mm = (vals.mean_raw - cal_intercept) / cal_slope;
 
 % Report result
-fprintf('\nNa file:  %s\nROI file: %s\n\n',na_niigz,roi_niigz)
 fprintf('cal_slope:       %f\ncal_intercept:  %f\ncal_rsq:         %f\n\n', ...
 cal_slope,cal_intercept,cal_rsq)
 disp(vals)
